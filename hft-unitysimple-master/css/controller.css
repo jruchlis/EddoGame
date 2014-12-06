@@ -1,0 +1,18 @@
+#gamestatus {
+    position: absolute;
+    z-index: 4000;
+    border-radius: 5px;
+    background-color: rgba(0,0,0,0.5);
+    margin: 0.5em;
+    padding: 0.5em;
+    color: white;
+    font-size: medium;
+}
+
+
+.buttons {
+    top: 30px;
+    padding:100px;
+ 
+}
+    
