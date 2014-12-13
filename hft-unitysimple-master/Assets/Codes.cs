@@ -1,10 +1,11 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
 public class Codes : MonoBehaviour
 {
-
+		public static SpawnSphere shapeSpawn;
+		
 		public static List<string> goodCodes = null;// new List<string> ();
 		public static List<string> triCodes = null;
 		public static List<string> pentCodes = null;
@@ -19,9 +20,13 @@ public class Codes : MonoBehaviour
 		public static float timeCounter = 0.0f;
 		public static Color codeColor = Color.red;
 
+		
+
 		// Use this for initialization
 		void Start ()
 		{
+				
+		shapeSpawn = GameObject.Find ("OculusEverything/SphereMaker").GetComponent<SpawnSphere>();
 
 				if (goodCodes == null) { //haven't set up the codes yet
 						goodCodes = new List<string> ();
@@ -62,46 +67,60 @@ public class Codes : MonoBehaviour
 				return newCode;
 		}
 	
-		public static bool receiveCode (string code)
+		public static string receiveCode (string code)
 		{
 				bool wasTriCode = triCodes.Contains (code);
 				bool wasPentCode = pentCodes.Contains (code);
 				bool wasSqCode = sqCodes.Contains (code);
 				bool wasGoodCode = goodCodes.Contains (code);
 				bool wasBadCode = badCodes.Contains (code);
+				
+		string result = "";
 				if (wasGoodCode) {
-						goodCodes.Remove (code);
+					goodCodes.Remove (code);
+					
+						
 						//could add a new code
 				} else if (wasBadCode == false) {
-						print ("reset");
+			result= ("reset");
 				}
 				if (wasTriCode) {
 						triCodes.Remove (code);
-						print ("triangle");
+						allCodes.Remove (code);
+			result= ("triangle");
+						shapeSpawn.spawnSphere(0);
+						
+						
 				}
 				if (wasPentCode) {
 						pentCodes.Remove (code);
-						print ("pentagon");
+						allCodes.Remove (code);
+			result= ("pentagon");
+						shapeSpawn.spawnSphere(1);
+
 				}
 				if (wasSqCode) {
 						sqCodes.Remove (code);
-						print ("square");
+						allCodes.Remove (code);
+			result= ("square");
+						shapeSpawn.spawnSphere(2);
 				}
 				if (wasBadCode) {
 						badCodes.Remove (code);
-						print ("dud");
+						allCodes.Remove (code);
+			result= ("dud");
 
 		
 				}
-
-				return wasGoodCode;
+				print (result);
+				return result;
 
 		}
 	
 		// Update is called once per frame
 		void Update () 
 		{
-			if (timeCounter < 100)
+			if (timeCounter < 90)
 			{   
 				timeCounter ++;
 			}
@@ -131,7 +150,7 @@ public class Codes : MonoBehaviour
 						
 
 						
-			AlexUtil.DrawText (new Vector2 ((Mathf.Sin(theta)*(Screen.height/2-15))+Screen.width/2, Mathf.Cos(theta)*(Screen.height/2-15)+Screen.height/2), "" + allCodes [i], 12, codeColor);
+			AlexUtil.DrawText (new Vector2 (((Mathf.Sin(theta)*((Screen.height*allCodes.Count/2-400)/40))+Screen.width/2), (Mathf.Cos(theta)*((Screen.height*allCodes.Count/2-400)/40)+Screen.height/2)-5), "" + allCodes [i], 12, Color.black);
 				}
 
 				/*for (int i = 0; i < badCodes.Count; i++) {

@@ -2,6 +2,9 @@
 using System.Collections;
 
 public class SpawnSphere : MonoBehaviour {
+
+	public Codes codes;
+
 	int nSpheres = 0;
 	//int nCubes = 0;
 
@@ -9,10 +12,27 @@ public class SpawnSphere : MonoBehaviour {
 	public GameObject spherePrefab;
 	public GameObject cubePrefab;
 	public GameObject startPosition;
+	public GameObject cylinderPrefab;
+	
 	// Use this for initialization
 	void Start () {
-	
+
+
 	}
+
+	public void spawnSphere(int whichShape)
+	{
+		GameObject[] shapePrefabs = {spherePrefab, cubePrefab, cylinderPrefab};
+
+		GameObject newObject = (GameObject) Instantiate(shapePrefabs[whichShape]);
+
+		newObject.transform.position = startPosition.transform.position + new Vector3(Random.Range(-5,5), Random.Range(-5,5),0);
+		
+			nSpheres++;
+			//nCubes = nCubes+1;//same as nCubes++; and same as nCubes+=1;
+
+		}
+
 	
 	// Update is called once per frame
 	void Update () {
@@ -40,7 +60,7 @@ public class SpawnSphere : MonoBehaviour {
 
 		}
 
-		if (Input.GetKeyDown("x"))
+		if (Input.GetKeyDown("y"))
 		{
 			newObject = (GameObject) Instantiate(cubePrefab);
 		}
@@ -54,7 +74,7 @@ public class SpawnSphere : MonoBehaviour {
 		
 		if (newObject !=null)
 		{
-			newObject.transform.position = startPosition.transform.position + new Vector3(0, nSpheres * 1.5f, 0);
+			newObject.transform.position = startPosition.transform.position + new Vector3(Random.Range(-5,5), Random.Range(-5,5),0);
 			
 			nSpheres++;
 			//nCubes = nCubes+1;//same as nCubes++; and same as nCubes+=1;

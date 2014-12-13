@@ -171,20 +171,20 @@ requirejs([
   client.sendCmd('color', {
     color: color,
   });
-  colorElem.style.backgroundColor = color;
-
-  // Send a message to the game when the screen is touched
-  inputElem.addEventListener('pointermove', function(event) {
-    var position = Input.getRelativeCoordinates(event.target, event);
-    sendMoveCmd(position, event.target);
-    event.preventDefault();
-  });
+  
 
           // receive a message from unity
   client.addEventListener('messageToPhone', function(cmd) {
    console.log(cmd.message);
   });
         
+          // Update our score when the game tells us.
+  client.addEventListener('shape', function(cmd) {
+  	console.log("shape result:" + cmd.shape);
+  	statusElem.innerHTML = "Got a " + cmd.shape;
+    //score += cmd.points;
+    //statusElem.innerHTML = "You scored: " + cmd.points + " total: " + score;
+  });
         
   // Update our score when the game tells us.
   client.addEventListener('scored', function(cmd) {
